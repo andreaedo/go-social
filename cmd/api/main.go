@@ -4,6 +4,7 @@ import (
 	"log"
 
 	"github.com/andreaedo/go-social/internal/env"
+	"github.com/andreaedo/go-social/internal/store"
 )
 
 func main() {
@@ -11,8 +12,11 @@ func main() {
 		addr: env.GetString("ADDR", ":8080"),
 	}
 
-	app := application{
-		config: cfg,
+	storage := store.NewStorage(nil)
+
+	app := &application{
+		config:  cfg,
+		storage: storage,
 	}
 
 	mux := app.mount()
